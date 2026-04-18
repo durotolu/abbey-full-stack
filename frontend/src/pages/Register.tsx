@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { api } from "../api/client";
-import { setToken } from "../utils/auth";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/auth-context";
 
 export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const { setToken } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleRegister = async () => {
@@ -18,7 +18,7 @@ export default function Register() {
     });
 
     setToken(res.data.token);
-    navigate("/");
+    navigate("/", { replace: true });
   };
 
   return (

@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { api } from "../api/client";
-import { getToken, logout } from "../utils/auth";
+import { getToken } from "../utils/auth";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/auth-context";
 
 type User = {
   id: string;
@@ -12,7 +13,7 @@ type User = {
 export default function Dashboard() {
   const [users, setUsers] = useState<User[]>([]);
   const [following, setFollowing] = useState<string[]>([]);
-
+  const { setToken } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const loadUsers = async () => {
@@ -54,8 +55,8 @@ export default function Dashboard() {
         <button
           className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
           onClick={() => {
-            logout();
-            navigate("/");
+            setToken(null);
+            navigate("/login", { replace: true });
           }}
         >
           Logout
