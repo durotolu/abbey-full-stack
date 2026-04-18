@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../api/client";
 import { getToken, logout } from "../utils/auth";
+import { useNavigate } from "react-router-dom";
 
 type User = {
   id: string;
@@ -11,6 +12,8 @@ type User = {
 export default function Dashboard() {
   const [users, setUsers] = useState<User[]>([]);
   const [following, setFollowing] = useState<string[]>([]);
+
+  const navigate = useNavigate();
 
   const loadUsers = async () => {
     const res = await api.get("/users");
@@ -47,7 +50,12 @@ export default function Dashboard() {
     <div>
       <h2>Dashboard</h2>
 
-      <button onClick={logout}>Logout</button>
+      <button 
+        onClick={() => {
+          logout()
+          navigate("/");
+        }}
+      >Logout</button>
 
       <div>
         {users.map((user) => (

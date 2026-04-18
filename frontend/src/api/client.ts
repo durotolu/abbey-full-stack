@@ -1,8 +1,12 @@
 import axios from "axios";
 import { getToken } from "../utils/auth";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+console.log("import.meta.env.VITE_BACKEND_URL", backendUrl);
+
 export const api = axios.create({
-  baseURL: import.meta.env.BACKEND_URL,
+  baseURL: backendUrl,
 });
 
 api.interceptors.request.use((config) => {
