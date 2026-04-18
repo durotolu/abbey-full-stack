@@ -3,8 +3,6 @@ import { getToken } from "../utils/auth";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-console.log("import.meta.env.VITE_BACKEND_URL", backendUrl);
-
 export const api = axios.create({
   baseURL: backendUrl,
 });
